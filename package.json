@@ -1,0 +1,21 @@
+{
+  "name": "androsamp/filament-rich-editor-highlight",
+  "version": "1.0.0",
+  "description": "Filament Rich Editor Highlight Plugin (TipTap) for FilamentPHP.",
+  "main": "resources/js/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "node bin/build.js",
+    "dev": "node bin/build.js --dev",
+    "watch": "node bin/build.js --dev"
+  },
+  "keywords": ["filament", "rich-editor", "highlight"],
+  "author": "androsamp",
+  "license": "MIT",
+  "devDependencies": {
+    "@tiptap/extension-highlight": "^2.4.0",
+    "esbuild": "^0.25.0"
+  }
+}
+
+
