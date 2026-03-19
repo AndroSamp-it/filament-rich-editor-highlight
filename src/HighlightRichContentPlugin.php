@@ -9,7 +9,6 @@ use Filament\Forms\Components\RichEditor\EditorCommand;
 use Filament\Forms\Components\RichEditor\Plugins\Contracts\RichContentPlugin;
 use Filament\Forms\Components\RichEditor\RichEditorTool;
 use Filament\Support\Facades\FilamentAsset;
-use Tiptap\Marks\Highlight as PhpHighlight;
 
 class HighlightRichContentPlugin implements RichContentPlugin
 {
@@ -23,16 +22,9 @@ class HighlightRichContentPlugin implements RichContentPlugin
         return app (static::class);
     }
 
-    /**
-     * @return array<PhpHighlight>
-     */
     public function getTipTapPhpExtensions(): array
     {
-        return [
-            app (HighlightExtension::class, [
-                'options' => ['multicolor' => true],
-            ]),
-        ];
+        return [];
     }
 
     /**
@@ -40,8 +32,12 @@ class HighlightRichContentPlugin implements RichContentPlugin
      */
     public function getTipTapJsExtensions(): array
     {
+        $scriptSrc = FilamentAsset::getScriptSrc('rich-content-plugins/highlight');
+        $relativeSrc = parse_url($scriptSrc, PHP_URL_PATH) ?: $scriptSrc;
+        $query = parse_url($scriptSrc, PHP_URL_QUERY);
+
         return [
-            FilamentAsset::getScriptSrc('rich-content-plugins/highlight'),
+            filled($query) ? "{$relativeSrc}?{$query}" : $relativeSrc,
         ];
     }
 
@@ -54,7 +50,7 @@ class HighlightRichContentPlugin implements RichContentPlugin
             RichEditorTool::make ('highlightColorPicker')
                 ->label (__ ('filament-rich-editor-highlight::highlight.label'))
                 ->icon ('heroicon-o-tag')
-                ->action (arguments: '{ backgroundColor: $getEditor()?.getAttributes(\'highlightColorPicker\')?.color ?? null }'),
+                ->action (arguments: '{ backgroundColor: $getEditor()?.getAttributes(\'highlight\')?.color ?? null }'),
         ];
     }
 
