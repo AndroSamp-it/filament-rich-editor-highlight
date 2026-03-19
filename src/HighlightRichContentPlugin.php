@@ -53,7 +53,7 @@ class HighlightRichContentPlugin implements RichContentPlugin
         return [
             RichEditorTool::make ('highlightColorPicker')
                 ->label (__ ('filament-rich-editor-highlight::highlight.label'))
-                ->icon ('heroicon-o-paint-brush')
+                ->icon ('heroicon-o-tag')
                 ->action (arguments: '{ backgroundColor: $getEditor()?.getAttributes(\'highlightColorPicker\')?.color ?? null }'),
         ];
     }
